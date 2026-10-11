@@ -6,7 +6,7 @@ def add(a: int, b: int) -> int:
     return a + b
 
 
-def test_sum():
+def test_sum():  # test_ is defined by pytest as test not function
     assert add(2, 3) == 5
 
 

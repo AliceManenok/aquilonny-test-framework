@@ -10,8 +10,8 @@ from pathlib import Path
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-CONFIG_DIR = PROJECT_ROOT / "config"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent  # path to project root, two folders up
+CONFIG_DIR = PROJECT_ROOT / "config"  # path to the folder config
 
 
 class Settings(BaseSettings):
@@ -28,8 +28,8 @@ class Settings(BaseSettings):
 
 def load_settings() -> Settings:
     """Build Settings for the environment named in TEST_ENV (default: demo)."""
-    env_name = os.getenv("TEST_ENV", "demo")
-    env_file = CONFIG_DIR / f"{env_name}.env"
+    env_name = os.getenv("TEST_ENV", "demo")  # reads env var TEST_ENV, if not set then demo
+    env_file = CONFIG_DIR / f"{env_name}.env"  # creates path to env
     if not env_file.exists():
         available = sorted(path.stem for path in CONFIG_DIR.glob("*.env"))
         raise FileNotFoundError(

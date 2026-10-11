@@ -1,0 +1,20 @@
+# Test runner and plugins
+pytest==9.1.1
+pytest-xdist==3.8.0
+pytest-html==4.2.0
+pytest-rerunfailures==16.7
+
+# UI testing (browser versions are tied to the playwright version)
+pytest-playwright==0.10.0
+playwright==1.63.0
+
+# API testing and data models
+httpx==0.28.1
+pydantic==2.14.0
+pydantic-settings==2.15.0
+
+# Test data
+Faker==40.43.0
+
+# Code quality
+ruff==0.17.0

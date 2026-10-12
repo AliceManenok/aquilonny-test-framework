@@ -11,8 +11,8 @@ class InventoryPage(BasePage):
 
     def __init__(self, page: Page, base_url: str) -> None:
         super().__init__(page, base_url)
-        self.header = HeaderComponent(page.get_by_test_id("primary-header"))
-        self.title = page.get_by_test_id("title")
+        self.header = HeaderComponent(page.get_by_test_id("primary-header"))  # Root locator
+        self.title = page.get_by_test_id("title")  # These 3 are locators
         self.items = page.get_by_test_id("inventory-item")
         self.item_name = page.get_by_test_id("inventory-item-name")
 
@@ -23,5 +23,5 @@ class InventoryPage(BasePage):
         return self.item_name.all_inner_texts()
 
     def add_to_cart(self, product_name: str) -> None:
-        item = self.items.filter(has_text=product_name)  # Find the item with the given product name
-        item.get_by_role("button", name="Add to cart").click()  # Adds that name's item
+        item = self.items.filter(has_text=product_name)  # Find item with given ProductName. Locator
+        item.get_by_role("button", name="Add to cart").click()  # Adds that name's item. Locator

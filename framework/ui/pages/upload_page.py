@@ -23,7 +23,7 @@ class UploadPage(BasePage):
 
     def __init__(self, page: Page, base_url: str) -> None:
         super().__init__(page, base_url)
-        self.file_input = page.locator("#file-upload")
+        self.file_input = page.locator("#file-upload")  # These 3 are locators
         self.upload_button = page.get_by_role("button", name="Upload")
         self.uploaded_files = page.locator("#uploaded-files")
 

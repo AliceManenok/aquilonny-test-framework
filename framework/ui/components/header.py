@@ -6,6 +6,8 @@ from playwright.sync_api import Locator
 class HeaderComponent:
     """A part of several pages, not a page itself: it has no URL and is found inside a page."""
 
+    # That's why Header is a component not a page (not inherited from BasePage), shared
+
     def __init__(self, root: Locator) -> None:  # Find the root of header component
         self.cart_link = root.get_by_test_id("shopping-cart-link")
         self.cart_badge = root.get_by_test_id("shopping-cart-badge")

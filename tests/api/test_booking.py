@@ -48,7 +48,8 @@ def test_update_booking_without_token_is_forbidden(
         {"firstname": "A" * 100},
         {"firstname": "Иван", "lastname": "Петров"},
         {"bookingdates": {"checkin": "2026-12-01", "checkout": "2026-12-01"}},
-    ],  # will run 4 times/4 tests for each **overrides set of parameters
+    ],
+    # will run 4 times/4 tests for each **overrides set of parameters
     ids=["no-deposit", "long-name", "cyrillic", "same-day"],
 )
 def test_create_booking_with_various_data(

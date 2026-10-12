@@ -11,7 +11,7 @@ class LoginPage(BasePage):
 
     def __init__(self, page: Page, base_url: str) -> None:
         super().__init__(page, base_url)  # execute parent's (BasePage) init constructor/method
-        self.username_input = page.get_by_test_id("username")  # This and following are locators
+        self.username_input = page.get_by_test_id("username")  # These 4 are locators
         self.password_input = page.get_by_test_id("password")
         self.login_button = page.get_by_test_id("login-button")
         self.error_message = page.get_by_test_id("error")

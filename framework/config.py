@@ -19,9 +19,8 @@ class Settings(BaseSettings):
 
     api_base_url: str
     ui_base_url: str
-    upload_url: str
+    upload_base_url: str
     timeout: int = 10
-    headless: bool = True
     api_username: str
     api_password: SecretStr
 

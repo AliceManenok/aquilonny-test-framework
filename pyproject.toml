@@ -1,7 +1,13 @@
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
-addopts = "-ra --strict-markers"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--browser=chromium",
+    "--tracing=retain-on-failure",
+    "--screenshot=only-on-failure",
+]
 markers = [
     "api: API tests, no browser needed",
     "ui: UI tests that run in a browser",

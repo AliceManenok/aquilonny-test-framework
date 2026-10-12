@@ -6,7 +6,7 @@ from framework.config import Settings
 def test_urls_use_https(settings: Settings):
     assert settings.api_base_url.startswith("https://")
     assert settings.ui_base_url.startswith("https://")
-    assert settings.upload_url.startswith("https://")
+    assert settings.upload_base_url.startswith("https://")
 
 
 def test_timeout_is_positive(settings: Settings):

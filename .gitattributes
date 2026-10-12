@@ -1,0 +1,2 @@
+# Keep binary test files byte-for-byte: no line-ending conversion on Windows checkouts
+*.pdf binary

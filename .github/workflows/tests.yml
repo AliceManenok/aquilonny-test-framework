@@ -113,3 +113,45 @@ jobs:
         with:
           name: ui-traces
           path: test-results/
+
+  publish-report:  # latest reports of main on GitHub Pages: one link instead of downloading artifacts
+    needs: [api-tests, ui-tests]
+    if: >-  # main only, not for PRs; publish failed runs too, but not when lint stopped the tests
+      ${{ !cancelled() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+      && needs.api-tests.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: "*-report"  # api-report and ui-report, each into its own folder
+          path: site
+      - name: Build the index page
+        run: |
+          cat > site/index.html <<HTML
+          <!doctype html>
+          <html lang="en">
+          <head><meta charset="utf-8"><title>Aquilonny test reports</title></head>
+          <body style="font-family: sans-serif; max-width: 640px; margin: 40px auto">
+            <h1>Aquilonny test reports</h1>
+            <p>Run #${{ github.run_number }} (${{ github.event_name }}, suite: ${{ inputs.suite || 'all' }}),
+               commit <code>${GITHUB_SHA::7}</code>, $(date -u '+%Y-%m-%d %H:%M UTC')</p>
+            <ul>
+              <li><a href="api-report/api-report.html">API and settings tests</a></li>
+              <li><a href="ui-report/ui-report.html">UI tests</a></li>
+            </ul>
+            <p><a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">This run on GitHub</a></p>
+          </body>
+          </html>
+          HTML
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+      - id: deploy
+        uses: actions/deploy-pages@v5

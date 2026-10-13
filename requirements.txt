@@ -16,5 +16,6 @@ pydantic-settings==2.15.0
 # Test data
 Faker==40.43.0
 
-# Code quality
+# Code quality (keep ruff equal to rev in .pre-commit-config.yaml)
 ruff==0.17.0
+pre-commit==4.7.0

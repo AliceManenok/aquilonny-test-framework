@@ -1,0 +1,8 @@
+# Checks that run before every `git commit`; install once per clone with:
+#   python -m pre_commit install
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.0  # keep equal to ruff in requirements.txt
+    hooks:
+      - id: ruff-check   # lint: errors, imports, type hints
+      - id: ruff-format  # formatting: fixes files, then asks to commit again

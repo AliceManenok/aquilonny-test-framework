@@ -8,6 +8,9 @@ addopts = [
     "--tracing=retain-on-failure",
     "--screenshot=only-on-failure",
 ]
+log_level = "DEBUG"
+log_format = "%(asctime)s %(levelname)-5s %(name)s: %(message)s"
+log_date_format = "%H:%M:%S"
 markers = [
     "api: API tests, no browser needed",
     "ui: UI tests that run in a browser",
@@ -19,4 +22,8 @@ target-version = "py313"
 line-length = 100
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "B", "UP"]
+select = ["E", "F", "I", "B", "UP", "ANN"]  # ANN means all functions must have params and result types
+ignore = ["ANN401"]  # Any is fine for JSON payloads, whose values can be of any type
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["ANN"]  # test functions return nothing; type hints there are optional

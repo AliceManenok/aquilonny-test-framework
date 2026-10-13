@@ -1,6 +1,7 @@
 """Base HTTP client: one place for the base URL, the timeout and request logging."""
 
 import logging
+from typing import Any
 
 import httpx
 
@@ -15,7 +16,9 @@ class BaseApiClient:
         # __init__ constructor, when object is created from class and it initializes the attributes
         # self link to the object for method to work on it
 
-    def _request(self, method: str, path: str, **kwargs) -> httpx.Response:
+    def _request(
+        self, method: str, path: str, log_body: bool = True, **kwargs: Any
+    ) -> httpx.Response:
         # **kwargs pass all the rest as is. (json=.., headers=.., params=.., etc)
         """Send a request, log it, and return the response unchanged (tests do the asserts)."""
         response = self._client.request(method, path, **kwargs)
@@ -26,7 +29,10 @@ class BaseApiClient:
             response.status_code,
             response.elapsed.total_seconds(),
         )
-        logger.debug("Response body: %s", response.text)
+        if log_body:  # Log the body only if it doesn't contain secrets (like a password or token)
+            logger.debug("Response body: %s", response.text)
+        else:
+            logger.debug("Response body not logged: it may contain secrets")
         return response
 
     def close(self) -> None:  # close connection

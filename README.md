@@ -81,6 +81,7 @@ test_data/           users.json, files/sample_lease.pdf
 
 | Decision | Why |
 | --- | --- |
+| Python + pytest | one language for API, UI and LLM accuracy evaluation, where Python has the richest tooling (model SDKs, eval frameworks, metrics, pandas); pytest fixtures, markers and plugins |
 | Layers: tests → framework → config | tests describe scenarios; URLs, locators and auth change in one place |
 | Settings via pydantic-settings and `TEST_ENV` | one typed source, fails fast on a missing value; env vars override files, so CI injects secrets |
 | API client returns raw responses | tests own every assert, negative ones (403, 404) included |

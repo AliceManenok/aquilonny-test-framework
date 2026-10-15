@@ -65,14 +65,14 @@ jobs:
           reporter: java-junit
           fail-on-empty: false  # no XML means pytest crashed earlier; that step already failed
       - name: Upload API report
-        if: always()  # the report will be created always
+        if: always()  # the report will be created always, especially when tests fail
         uses: actions/upload-artifact@v7
         with:
           name: api-report
           path: reports/
 
   ui-tests:
-    needs: lint  # waits for lint only, so it runs in parallel with api-tests
+    needs: lint  # waits for lint only, so ui runs in parallel with api-tests
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:  # Settings needs the API login for every test, UI tests included
